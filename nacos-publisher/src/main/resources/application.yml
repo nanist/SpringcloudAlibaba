@@ -1,0 +1,10 @@
+
+server:
+  port: 8011
+spring:
+  application:
+    name: nacos-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.8.150:8848 #服务发现地址
