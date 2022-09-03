@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsOperationSupportMapper">
+    
+    <resultMap type="LgsOperationSupport" id="LgsOperationSupportResult">
+        <result property="id"    column="ID"    />
+        <result property="fileId"    column="FILE_ID"    />
+        <result property="demandId"    column="demand_id"    />
+        <result property="equipmentId"    column="EQUIPMENT_ID"    />
+        <result property="taskRulesId"    column="task_rules_id"    />
+        <result property="taskDescribe"    column="task_describe"    />
+        <result property="billType"    column="BILL_TYPE"    />
+        <result property="nextTaskExecutionTime"    column="next_task_execution_time"    />
+        <result property="billStatus"    column="BILL_STATUS"    />
+        <result property="reviewedBy"    column="REVIEWED_BY"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+        <result property="taskRules"    column="task_rules"    />
+        <result property="dateInterval"    column="date_interval"    />
+        <result property="reminderDate"    column="reminder_date"    />
+        <result property="executiveRole"    column="executive_role"    />
+        <result property="subtask"    column="subtask"    />
+        <result property="completionTime"    column="completion_time"    />
+        <result property="siteId"    column="site_id"    />
+    </resultMap>
+
+    <resultMap type="LgsOperationSupport" id="LgsOperationSupportStrResult">
+        <result property="id"    column="ID"    />
+        <result property="taskDescribe"    column="task_describe"    />
+        <result property="taskName"    column="task_name"    />
+        <result property="cycle"    column="cycle"    />
+        <result property="reminderDateStr"    column="reminder_date_str"    />
+        <result property="roleStr"    column="role_str"    />
+        <result property="isDisableStr"    column="is_disable_str"    />
+    </resultMap>
+
+    <sql id="selectLgsOperationSupportVo">
+        select ID, FILE_ID, demand_id, EQUIPMENT_ID, task_rules_id, task_describe, BILL_TYPE, next_task_execution_time, BILL_STATUS, REVIEWED_BY, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME from lgs_operation_support
+    </sql>
+
+    <select id="selectLgsOperationSupportList" parameterType="LgsOperationSupport" resultMap="LgsOperationSupportResult">
+        <include refid="selectLgsOperationSupportVo"/>
+        <where>  
+            <if test="fileId != null  and fileId != ''"> and FILE_ID = #{fileId}</if>
+            <if test="demandId != null "> and demand_id = #{demandId}</if>
+            <if test="equipmentId != null  and equipmentId != ''"> and EQUIPMENT_ID = #{equipmentId}</if>
+            <if test="taskRulesId != null  and taskRulesId != ''"> and task_rules_id = #{taskRulesId}</if>
+            <if test="taskDescribe != null  and taskDescribe != ''"> and task_describe = #{taskDescribe}</if>
+            <if test="billType != null "> and BILL_TYPE = #{billType}</if>
+            <if test="nextTaskExecutionTime != null "> and next_task_execution_time = #{nextTaskExecutionTime}</if>
+            <if test="billStatus != null  and billStatus != ''"> and BILL_STATUS = #{billStatus}</if>
+            <if test="reviewedBy != null  and reviewedBy != ''"> and REVIEWED_BY = #{reviewedBy}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectLgsOperationSupportById" parameterType="Long" resultMap="LgsOperationSupportResult">
+        <include refid="selectLgsOperationSupportVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsOperationSupport" parameterType="LgsOperationSupport" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_operation_support
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">FILE_ID,</if>
+            <if test="demandId != null">demand_id,</if>
+            <if test="equipmentId != null">EQUIPMENT_ID,</if>
+            <if test="taskRulesId != null">task_rules_id,</if>
+            <if test="taskDescribe != null">task_describe,</if>
+            <if test="billType != null">BILL_TYPE,</if>
+            <if test="nextTaskExecutionTime != null">next_task_execution_time,</if>
+            <if test="billStatus != null">BILL_STATUS,</if>
+            <if test="reviewedBy != null">REVIEWED_BY,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">#{fileId},</if>
+            <if test="demandId != null">#{demandId},</if>
+            <if test="equipmentId != null">#{equipmentId},</if>
+            <if test="taskRulesId != null">#{taskRulesId},</if>
+            <if test="taskDescribe != null">#{taskDescribe},</if>
+            <if test="billType != null">#{billType},</if>
+            <if test="nextTaskExecutionTime != null">#{nextTaskExecutionTime},</if>
+            <if test="billStatus != null">#{billStatus},</if>
+            <if test="reviewedBy != null">#{reviewedBy},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsOperationSupport" parameterType="LgsOperationSupport">
+        update lgs_operation_support
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileId != null">FILE_ID = #{fileId},</if>
+            <if test="demandId != null">demand_id = #{demandId},</if>
+            <if test="equipmentId != null">EQUIPMENT_ID = #{equipmentId},</if>
+            <if test="taskRulesId != null">task_rules_id = #{taskRulesId},</if>
+            <if test="taskDescribe != null">task_describe = #{taskDescribe},</if>
+            <if test="billType != null">BILL_TYPE = #{billType},</if>
+            <if test="nextTaskExecutionTime != null">next_task_execution_time = #{nextTaskExecutionTime},</if>
+            <if test="billStatus != null">BILL_STATUS = #{billStatus},</if>
+            <if test="reviewedBy != null">REVIEWED_BY = #{reviewedBy},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsOperationSupportById" parameterType="Long">
+        delete from lgs_operation_support where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsOperationSupportByIds" parameterType="String">
+        delete from lgs_operation_support where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectLgsOperationTaskList" parameterType="LgsOperationSupport" resultMap="LgsOperationSupportResult">
+        SELECT
+            d.site_id,
+            d.completion_time,
+            os.ID,
+            os.demand_id,
+            os.BILL_TYPE,
+            os.task_describe,
+            otr.task_rules,
+            otr.date_interval,
+            otr.reminder_date,
+            otr.executive_role,
+            otr.subtask
+        FROM
+            lgs_operation_support os
+                LEFT JOIN lgs_operation_task_rules otr ON os.task_rules_id = otr.ID
+                LEFT JOIN lgs_demand d ON os.demand_id = d.ID
+        WHERE
+            os.DEL_FLAG = 0
+          AND otr.DEL_FLAG = 0
+          AND otr.is_disable = 0
+          AND d.DEL_FLAG =0
+    </select>
+
+    <select id="getOperationlistByDemandId" parameterType="Long" resultMap="LgsOperationSupportStrResult">
+        SELECT
+            os.ID,
+            otr.task_name,
+            otr.task_describe,
+            CASE
+
+                WHEN otr.task_rules = 0 THEN
+                    CONCAT( "每隔", otr.date_interval, "天" )
+                WHEN otr.task_rules = 1 THEN
+                    CONCAT( "每隔", otr.date_interval, "月" )
+                WHEN otr.task_rules = 3 THEN
+                    '每半年' ELSE '每年'
+                END AS cycle,
+            CONCAT( "提前", otr.reminder_date, "天" ) AS reminder_date_str,
+            CASE
+
+                WHEN otr.executive_role = 0 THEN
+                    '硬件支持人员'
+                WHEN otr.executive_role = 1 THEN
+                    '软件支持人员' ELSE '全部'
+                END AS role_str,
+            IF
+                ( otr.is_disable = 0, '已启用', '已禁用' ) AS is_disable_str
+        FROM
+            lgs_operation_support os
+                LEFT JOIN lgs_operation_task_rules otr ON os.task_rules_id = otr.ID
+        WHERE
+            os.DEL_FLAG = 0
+          AND otr.DEL_FLAG = 0
+          AND otr.is_disable = 0
+          AND os.demand_id = #{id}
+    </select>
+
+</mapper>

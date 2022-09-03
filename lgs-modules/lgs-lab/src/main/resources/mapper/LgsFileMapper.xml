@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsFileMapper">
+    
+    <resultMap type="LgsFile" id="LgsFileResult">
+        <result property="id"    column="ID"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileUrl"    column="file_url"    />
+        <result property="fileSize"    column="file_size"    />
+        <result property="source"    column="source"    />
+        <result property="type"    column="type"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+    </resultMap>
+
+    <sql id="selectLgsFileVo">
+        select ID, file_name, file_url, file_size, source, type, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME from lgs_file
+    </sql>
+
+    <select id="selectLgsFileList" parameterType="LgsFile" resultMap="LgsFileResult">
+        <include refid="selectLgsFileVo"/>
+        <where>  
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="fileUrl != null  and fileUrl != ''"> and file_url = #{fileUrl}</if>
+            <if test="fileSize != null  and fileSize != ''"> and file_size = #{fileSize}</if>
+            <if test="source != null "> and source = #{source}</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectLgsFileById" parameterType="Long" resultMap="LgsFileResult">
+        <include refid="selectLgsFileVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsFile" parameterType="LgsFile" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileName != null">file_name,</if>
+            <if test="fileUrl != null">file_url,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="source != null">source,</if>
+            <if test="type != null">type,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileName != null">#{fileName},</if>
+            <if test="fileUrl != null">#{fileUrl},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="source != null">#{source},</if>
+            <if test="type != null">#{type},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsFile" parameterType="LgsFile">
+        update lgs_file
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileName != null">file_name = #{fileName},</if>
+            <if test="fileUrl != null">file_url = #{fileUrl},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsFileById" parameterType="Long">
+        delete from lgs_file where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsFileByIds" parameterType="String">
+        delete from lgs_file where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--   Map<String,Map<String,Object>> findByVoList(List<QueryVo> queryVos);  -->
+    <select id="findByList" resultMap="LgsFileResult" parameterType="java.util.List">
+        SELECT * FROM lgs_file
+        <where>
+            <if test="list != null and list.size() > 0">
+                AND id in
+                <foreach collection="list" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

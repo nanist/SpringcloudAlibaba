@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsRetirementManagementMapper">
+    
+    <resultMap type="LgsRetirementManagement" id="LgsRetirementManagementResult">
+        <result property="id"    column="ID"    />
+        <result property="fileId"    column="file_id"    />
+        <result property="equipmentId"    column="equipment_id"    />
+        <result property="activity"    column="activity"    />
+        <result property="billType"    column="bill_type"    />
+        <result property="billStatus"    column="bill_status"    />
+        <result property="reviewedBy"    column="reviewed_by"    />
+        <result property="isUrgent"    column="is_urgent"    />
+        <result property="transferor"    column="transferor"    />
+        <result property="transferTime"    column="transfer_time"    />
+        <result property="completionTime"    column="completion_time"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+    </resultMap>
+
+    <sql id="selectLgsRetirementManagementVo">
+        select ID, file_id, equipment_id, activity, bill_type, bill_status, reviewed_by, is_urgent, transferor, transfer_time, completion_time, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME from lgs_retirement_management
+    </sql>
+
+    <select id="selectLgsRetirementManagementList" parameterType="LgsRetirementManagement" resultMap="LgsRetirementManagementResult">
+        <include refid="selectLgsRetirementManagementVo"/>
+        <where>  
+            <if test="fileId != null  and fileId != ''"> and file_id = #{fileId}</if>
+            <if test="equipmentId != null  and equipmentId != ''"> and equipment_id = #{equipmentId}</if>
+            <if test="activity != null  and activity != ''"> and activity = #{activity}</if>
+            <if test="billType != null  and billType != ''"> and bill_type = #{billType}</if>
+            <if test="billStatus != null  and billStatus != ''"> and bill_status = #{billStatus}</if>
+            <if test="reviewedBy != null  and reviewedBy != ''"> and reviewed_by = #{reviewedBy}</if>
+            <if test="isUrgent != null  and isUrgent != ''"> and is_urgent = #{isUrgent}</if>
+            <if test="transferor != null  and transferor != ''"> and transferor = #{transferor}</if>
+            <if test="transferTime != null "> and transfer_time = #{transferTime}</if>
+            <if test="completionTime != null "> and completion_time = #{completionTime}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectLgsRetirementManagementById" parameterType="Long" resultMap="LgsRetirementManagementResult">
+        <include refid="selectLgsRetirementManagementVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsRetirementManagement" parameterType="LgsRetirementManagement" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_retirement_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">file_id,</if>
+            <if test="equipmentId != null">equipment_id,</if>
+            <if test="activity != null">activity,</if>
+            <if test="billType != null">bill_type,</if>
+            <if test="billStatus != null">bill_status,</if>
+            <if test="reviewedBy != null">reviewed_by,</if>
+            <if test="isUrgent != null">is_urgent,</if>
+            <if test="transferor != null">transferor,</if>
+            <if test="transferTime != null">transfer_time,</if>
+            <if test="completionTime != null">completion_time,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">#{fileId},</if>
+            <if test="equipmentId != null">#{equipmentId},</if>
+            <if test="activity != null">#{activity},</if>
+            <if test="billType != null">#{billType},</if>
+            <if test="billStatus != null">#{billStatus},</if>
+            <if test="reviewedBy != null">#{reviewedBy},</if>
+            <if test="isUrgent != null">#{isUrgent},</if>
+            <if test="transferor != null">#{transferor},</if>
+            <if test="transferTime != null">#{transferTime},</if>
+            <if test="completionTime != null">#{completionTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsRetirementManagement" parameterType="LgsRetirementManagement">
+        update lgs_retirement_management
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fileId != null">file_id = #{fileId},</if>
+            <if test="equipmentId != null">equipment_id = #{equipmentId},</if>
+            <if test="activity != null">activity = #{activity},</if>
+            <if test="billType != null">bill_type = #{billType},</if>
+            <if test="billStatus != null">bill_status = #{billStatus},</if>
+            <if test="reviewedBy != null">reviewed_by = #{reviewedBy},</if>
+            <if test="isUrgent != null">is_urgent = #{isUrgent},</if>
+            <if test="transferor != null">transferor = #{transferor},</if>
+            <if test="transferTime != null">transfer_time = #{transferTime},</if>
+            <if test="completionTime != null">completion_time = #{completionTime},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsRetirementManagementById" parameterType="Long">
+        delete from lgs_retirement_management where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsRetirementManagementByIds" parameterType="String">
+        delete from lgs_retirement_management where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

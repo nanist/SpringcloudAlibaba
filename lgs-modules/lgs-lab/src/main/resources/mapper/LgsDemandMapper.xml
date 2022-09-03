@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsDemandMapper">
+    
+    <resultMap type="LgsDemand" id="LgsDemandResult">
+        <result property="id"    column="ID"    />
+        <result property="siteId"    column="site_id"    />
+        <result property="departmentId"    column="department_id"    />
+        <result property="fileId"    column="FILE_ID"    />
+        <result property="priority"    column="priority"    />
+        <result property="supplier"    column="supplier"    />
+        <result property="supplierContact"    column="supplier_contact"    />
+        <result property="owner"    column="owner"    />
+        <result property="expectedCompletionTime"    column="expected_completion_time"    />
+        <result property="isComplete"    column="is_complete"    />
+        <result property="completedBy"    column="completed_by"    />
+        <result property="completionTime"    column="completion_time"    />
+        <result property="demandTitle"    column="demand_title"    />
+        <result property="demandDescription"    column="demand_description"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+        <result property="DiffDate"    column="DiffDate"    />
+    </resultMap>
+
+    <sql id="selectLgsDemandVo">
+        select ID, site_id, department_id, FILE_ID, priority, supplier, supplier_contact, owner, expected_completion_time, is_complete, completed_by, completion_time, demand_title, demand_description, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME,	DATEDIFF( NOW(), expected_completion_time ) AS DiffDate  from lgs_demand
+    </sql>
+
+    <select id="selectLgsDemandList" parameterType="LgsDemand" resultMap="LgsDemandResult">
+        <include refid="selectLgsDemandVo"/>
+        <where>  
+            <if test="siteId != null "> and site_id = #{siteId}</if>
+            <if test="departmentId != null "> and department_id = #{departmentId}</if>
+            <if test="fileId != null "> and FILE_ID = #{fileId}</if>
+            <if test="priority != null  and priority != ''"> and priority = #{priority}</if>
+            <if test="supplier != null  and supplier != ''"> and supplier = #{supplier}</if>
+            <if test="supplierContact != null  and supplierContact != ''"> and supplier_contact = #{supplierContact}</if>
+            <if test="owner != null  and owner != ''"> and owner like concat('%', #{owner}, '%') </if>
+<!--            <if test="expectedCompletionTime != null "> and expected_completion_time = #{expectedCompletionTime}</if>-->
+            <choose>
+                <when test="DiffState !=null and DiffState == 0">
+                    and expected_completion_time &gt; NOW()
+                </when>
+                <when test="DiffState !=null and DiffState == 1">
+                    and expected_completion_time &lt; NOW()
+                </when>
+            </choose>
+            <if test="isComplete != null "> and is_complete = #{isComplete}</if>
+            <if test="completedBy != null  and completedBy != ''"> and completed_by = #{completedBy}</if>
+            <if test="completionTime != null "> and completion_time = #{completionTime}</if>
+            <if test="demandTitle != null  and demandTitle != ''"> and demand_title like concat('%', #{demandTitle}, '%')  </if>
+            <if test="demandDescription != null  and demandDescription != ''"> and demand_description = #{demandDescription}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+        ORDER BY id DESC
+    </select>
+    
+    <select id="selectLgsDemandById" parameterType="Long" resultMap="LgsDemandResult">
+        <include refid="selectLgsDemandVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsDemand" parameterType="LgsDemand" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_demand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="siteId != null">site_id,</if>
+            <if test="departmentId != null">department_id,</if>
+            <if test="fileId != null">FILE_ID,</if>
+            <if test="priority != null and priority != ''">priority,</if>
+            <if test="supplier != null">supplier,</if>
+            <if test="supplierContact != null">supplier_contact,</if>
+            <if test="owner != null">owner,</if>
+            <if test="expectedCompletionTime != null">expected_completion_time,</if>
+            <if test="isComplete != null">is_complete,</if>
+            <if test="completedBy != null">completed_by,</if>
+            <if test="completionTime != null">completion_time,</if>
+            <if test="demandTitle != null">demand_title,</if>
+            <if test="demandDescription != null">demand_description,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="siteId != null">#{siteId},</if>
+            <if test="departmentId != null">#{departmentId},</if>
+            <if test="fileId != null">#{fileId},</if>
+            <if test="priority != null and priority != ''">#{priority},</if>
+            <if test="supplier != null">#{supplier},</if>
+            <if test="supplierContact != null">#{supplierContact},</if>
+            <if test="owner != null">#{owner},</if>
+            <if test="expectedCompletionTime != null">#{expectedCompletionTime},</if>
+            <if test="isComplete != null">#{isComplete},</if>
+            <if test="completedBy != null">#{completedBy},</if>
+            <if test="completionTime != null">#{completionTime},</if>
+            <if test="demandTitle != null">#{demandTitle},</if>
+            <if test="demandDescription != null">#{demandDescription},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsDemand" parameterType="LgsDemand">
+        update lgs_demand
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="siteId != null">site_id = #{siteId},</if>
+            <if test="departmentId != null">department_id = #{departmentId},</if>
+            <if test="fileId != null">FILE_ID = #{fileId},</if>
+            <if test="priority != null and priority != ''">priority = #{priority},</if>
+            <if test="supplier != null">supplier = #{supplier},</if>
+            <if test="supplierContact != null">supplier_contact = #{supplierContact},</if>
+            <if test="owner != null">owner = #{owner},</if>
+            <if test="expectedCompletionTime != null">expected_completion_time = #{expectedCompletionTime},</if>
+            <if test="isComplete != null">is_complete = #{isComplete},</if>
+            <if test="completedBy != null">completed_by = #{completedBy},</if>
+            <if test="completionTime != null">completion_time = #{completionTime},</if>
+            <if test="demandTitle != null">demand_title = #{demandTitle},</if>
+            <if test="demandDescription != null">demand_description = #{demandDescription},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsDemandById" parameterType="Long">
+        delete from lgs_demand where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsDemandByIds" parameterType="String">
+        delete from lgs_demand where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

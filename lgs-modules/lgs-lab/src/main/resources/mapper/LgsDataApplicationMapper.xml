@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsDataApplicationMapper">
+    
+    <resultMap type="LgsDataApplication" id="LgsDataApplicationResult">
+        <result property="id"    column="ID"    />
+        <result property="demandId"    column="demand_id"    />
+        <result property="fileIds"    column="file_ids"    />
+        <result property="dataType"    column="data_type"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+    </resultMap>
+
+    <sql id="selectLgsDataApplicationVo">
+        select ID, demand_id, file_ids, data_type, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME from lgs_data_application
+    </sql>
+
+    <select id="selectLgsDataApplicationList" parameterType="LgsDataApplication" resultMap="LgsDataApplicationResult">
+        <include refid="selectLgsDataApplicationVo"/>
+        <where>  
+            <if test="demandId != null "> and demand_id = #{demandId}</if>
+            <if test="fileIds != null  and fileIds != ''"> and file_ids = #{fileIds}</if>
+            <if test="dataType != null "> and data_type = #{dataType}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectLgsDataApplicationById" parameterType="Long" resultMap="LgsDataApplicationResult">
+        <include refid="selectLgsDataApplicationVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsDataApplication" parameterType="LgsDataApplication" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_data_application
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="demandId != null">demand_id,</if>
+            <if test="fileIds != null">file_ids,</if>
+            <if test="dataType != null">data_type,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="demandId != null">#{demandId},</if>
+            <if test="fileIds != null">#{fileIds},</if>
+            <if test="dataType != null">#{dataType},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsDataApplication" parameterType="LgsDataApplication">
+        update lgs_data_application
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="demandId != null">demand_id = #{demandId},</if>
+            <if test="fileIds != null">file_ids = #{fileIds},</if>
+            <if test="dataType != null">data_type = #{dataType},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsDataApplicationById" parameterType="Long">
+        delete from lgs_data_application where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsDataApplicationByIds" parameterType="String">
+        delete from lgs_data_application where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsAssetsClientMapper">
+    
+    <resultMap type="LgsAssetsClient" id="LgsAssetsClientResult">
+        <result property="id"    column="ID"    />
+        <result property="demandId"    column="demand_id"    />
+        <result property="computerName"    column="computer_name"    />
+        <result property="serverIp"    column="server_ip"    />
+        <result property="operatingSystem"    column="operating_system"    />
+        <result property="vn"    column="vn"    />
+        <result property="backupDataPath"    column="backup_data_path"    />
+        <result property="applicationArchitecture"    column="application_architecture"    />
+        <result property="role"    column="role"    />
+        <result property="databaseType"    column="database_type"    />
+        <result property="haMode"    column="ha_mode"    />
+        <result property="computerType"    column="computer_type"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+    </resultMap>
+
+    <sql id="selectLgsAssetsClientVo">
+        select ID, demand_id, computer_name, server_ip, operating_system, vn, backup_data_path, application_architecture, role, database_type, ha_mode, computer_type, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME from lgs_assets_client
+    </sql>
+
+    <select id="selectLgsAssetsClientList" parameterType="LgsAssetsClient" resultMap="LgsAssetsClientResult">
+        <include refid="selectLgsAssetsClientVo"/>
+        <where>  
+            <if test="demandId != null "> and demand_id = #{demandId}</if>
+            <if test="computerName != null  and computerName != ''"> and computer_name like concat('%', #{computerName}, '%')</if>
+            <if test="serverIp != null  and serverIp != ''"> and server_ip = #{serverIp}</if>
+            <if test="operatingSystem != null  and operatingSystem != ''"> and operating_system = #{operatingSystem}</if>
+            <if test="vn != null "> and vn = #{vn}</if>
+            <if test="backupDataPath != null  and backupDataPath != ''"> and backup_data_path = #{backupDataPath}</if>
+            <if test="applicationArchitecture != null  and applicationArchitecture != ''"> and application_architecture = #{applicationArchitecture}</if>
+            <if test="role != null "> and role = #{role}</if>
+            <if test="databaseType != null  and databaseType != ''"> and database_type = #{databaseType}</if>
+            <if test="haMode != null  and haMode != ''"> and ha_mode = #{haMode}</if>
+            <if test="computerType != null "> and computer_type = #{computerType}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectLgsAssetsClientById" parameterType="Long" resultMap="LgsAssetsClientResult">
+        <include refid="selectLgsAssetsClientVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsAssetsClient" parameterType="LgsAssetsClient" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_assets_client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="demandId != null">demand_id,</if>
+            <if test="computerName != null">computer_name,</if>
+            <if test="serverIp != null">server_ip,</if>
+            <if test="operatingSystem != null">operating_system,</if>
+            <if test="vn != null">vn,</if>
+            <if test="backupDataPath != null">backup_data_path,</if>
+            <if test="applicationArchitecture != null">application_architecture,</if>
+            <if test="role != null">role,</if>
+            <if test="databaseType != null">database_type,</if>
+            <if test="haMode != null">ha_mode,</if>
+            <if test="computerType != null">computer_type,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="demandId != null">#{demandId},</if>
+            <if test="computerName != null">#{computerName},</if>
+            <if test="serverIp != null">#{serverIp},</if>
+            <if test="operatingSystem != null">#{operatingSystem},</if>
+            <if test="vn != null">#{vn},</if>
+            <if test="backupDataPath != null">#{backupDataPath},</if>
+            <if test="applicationArchitecture != null">#{applicationArchitecture},</if>
+            <if test="role != null">#{role},</if>
+            <if test="databaseType != null">#{databaseType},</if>
+            <if test="haMode != null">#{haMode},</if>
+            <if test="computerType != null">#{computerType},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsAssetsClient" parameterType="LgsAssetsClient">
+        update lgs_assets_client
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="demandId != null">demand_id = #{demandId},</if>
+            <if test="computerName != null">computer_name = #{computerName},</if>
+            <if test="serverIp != null">server_ip = #{serverIp},</if>
+            <if test="operatingSystem != null">operating_system = #{operatingSystem},</if>
+            <if test="vn != null">vn = #{vn},</if>
+            <if test="backupDataPath != null">backup_data_path = #{backupDataPath},</if>
+            <if test="applicationArchitecture != null">application_architecture = #{applicationArchitecture},</if>
+            <if test="role != null">role = #{role},</if>
+            <if test="databaseType != null">database_type = #{databaseType},</if>
+            <if test="haMode != null">ha_mode = #{haMode},</if>
+            <if test="computerType != null">computer_type = #{computerType},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsAssetsClientById" parameterType="Long">
+        delete from lgs_assets_client where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsAssetsClientByIds" parameterType="String">
+        delete from lgs_assets_client where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

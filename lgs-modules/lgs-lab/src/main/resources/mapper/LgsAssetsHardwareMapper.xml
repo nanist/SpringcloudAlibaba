@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsAssetsHardwareMapper">
+    
+    <resultMap type="LgsAssetsHardware" id="LgsAssetsHardwareResult">
+        <result property="id"    column="ID"    />
+        <result property="demandId"    column="demand_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="deviceType"    column="device_type"    />
+        <result property="systemVersion"    column="system_version"    />
+        <result property="fixedAssetsCode"    column="fixed_assets_code"    />
+        <result property="accountType"    column="account_type"    />
+        <result property="ipAddress"    column="ip_address"    />
+        <result property="macAddress"    column="mac_address"    />
+        <result property="networkPort"    column="network_port"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+    </resultMap>
+
+    <sql id="selectLgsAssetsHardwareVo">
+        select ID, demand_id, device_name, device_type, system_version, fixed_assets_code, account_type, ip_address, mac_address, network_port, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME from lgs_assets_hardware
+    </sql>
+
+    <select id="selectLgsAssetsHardwareList" parameterType="LgsAssetsHardware" resultMap="LgsAssetsHardwareResult">
+        <include refid="selectLgsAssetsHardwareVo"/>
+        <where>  
+            <if test="demandId != null "> and demand_id = #{demandId}</if>
+            <if test="deviceName != null  and deviceName != ''"> and device_name like concat('%', #{deviceName}, '%')</if>
+            <if test="deviceType != null  and deviceType != ''"> and device_type = #{deviceType}</if>
+            <if test="systemVersion != null  and systemVersion != ''"> and system_version = #{systemVersion}</if>
+            <if test="fixedAssetsCode != null  and fixedAssetsCode != ''"> and fixed_assets_code = #{fixedAssetsCode}</if>
+            <if test="accountType != null "> and account_type = #{accountType}</if>
+            <if test="ipAddress != null  and ipAddress != ''"> and ip_address = #{ipAddress}</if>
+            <if test="macAddress != null  and macAddress != ''"> and mac_address = #{macAddress}</if>
+            <if test="networkPort != null  and networkPort != ''"> and network_port = #{networkPort}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectLgsAssetsHardwareById" parameterType="Long" resultMap="LgsAssetsHardwareResult">
+        <include refid="selectLgsAssetsHardwareVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsAssetsHardware" parameterType="LgsAssetsHardware" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_assets_hardware
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="demandId != null">demand_id,</if>
+            <if test="deviceName != null">device_name,</if>
+            <if test="deviceType != null">device_type,</if>
+            <if test="systemVersion != null">system_version,</if>
+            <if test="fixedAssetsCode != null">fixed_assets_code,</if>
+            <if test="accountType != null">account_type,</if>
+            <if test="ipAddress != null">ip_address,</if>
+            <if test="macAddress != null">mac_address,</if>
+            <if test="networkPort != null">network_port,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="demandId != null">#{demandId},</if>
+            <if test="deviceName != null">#{deviceName},</if>
+            <if test="deviceType != null">#{deviceType},</if>
+            <if test="systemVersion != null">#{systemVersion},</if>
+            <if test="fixedAssetsCode != null">#{fixedAssetsCode},</if>
+            <if test="accountType != null">#{accountType},</if>
+            <if test="ipAddress != null">#{ipAddress},</if>
+            <if test="macAddress != null">#{macAddress},</if>
+            <if test="networkPort != null">#{networkPort},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsAssetsHardware" parameterType="LgsAssetsHardware">
+        update lgs_assets_hardware
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="demandId != null">demand_id = #{demandId},</if>
+            <if test="deviceName != null">device_name = #{deviceName},</if>
+            <if test="deviceType != null">device_type = #{deviceType},</if>
+            <if test="systemVersion != null">system_version = #{systemVersion},</if>
+            <if test="fixedAssetsCode != null">fixed_assets_code = #{fixedAssetsCode},</if>
+            <if test="accountType != null">account_type = #{accountType},</if>
+            <if test="ipAddress != null">ip_address = #{ipAddress},</if>
+            <if test="macAddress != null">mac_address = #{macAddress},</if>
+            <if test="networkPort != null">network_port = #{networkPort},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsAssetsHardwareById" parameterType="Long">
+        delete from lgs_assets_hardware where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsAssetsHardwareByIds" parameterType="String">
+        delete from lgs_assets_hardware where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

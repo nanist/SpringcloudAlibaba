@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsAssetsSystemMapper">
+    
+    <resultMap type="LgsAssetsSystem" id="LgsAssetsSystemResult">
+        <result property="id"    column="ID"    />
+        <result property="demandId"    column="demand_id"    />
+        <result property="systemName"    column="system_name"    />
+        <result property="edition"    column="edition"    />
+        <result property="type"    column="type"    />
+        <result property="state"    column="state"    />
+        <result property="isGxp"    column="is_gxp"    />
+        <result property="coreServices"    column="core_services"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+    </resultMap>
+
+    <sql id="selectLgsAssetsSystemVo">
+        select ID, demand_id, system_name, edition, type, state, is_gxp, core_services, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME from lgs_assets_system
+    </sql>
+
+    <select id="selectLgsAssetsSystemList" parameterType="LgsAssetsSystem" resultMap="LgsAssetsSystemResult">
+        <include refid="selectLgsAssetsSystemVo"/>
+        <where>  
+            <if test="demandId != null  and demandId != ''"> and demand_id = #{demandId}</if>
+            <if test="systemName != null  and systemName != ''"> and system_name like concat('%', #{systemName}, '%')</if>
+            <if test="edition != null  and edition != ''"> and edition = #{edition}</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+            <if test="isGxp != null "> and is_gxp = #{isGxp}</if>
+            <if test="coreServices != null  and coreServices != ''"> and core_services = #{coreServices}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectLgsAssetsSystemById" parameterType="Long" resultMap="LgsAssetsSystemResult">
+        <include refid="selectLgsAssetsSystemVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsAssetsSystem" parameterType="LgsAssetsSystem" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_assets_system
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="demandId != null">demand_id,</if>
+            <if test="systemName != null">system_name,</if>
+            <if test="edition != null">edition,</if>
+            <if test="type != null">type,</if>
+            <if test="state != null">state,</if>
+            <if test="isGxp != null">is_gxp,</if>
+            <if test="coreServices != null">core_services,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="demandId != null">#{demandId},</if>
+            <if test="systemName != null">#{systemName},</if>
+            <if test="edition != null">#{edition},</if>
+            <if test="type != null">#{type},</if>
+            <if test="state != null">#{state},</if>
+            <if test="isGxp != null">#{isGxp},</if>
+            <if test="coreServices != null">#{coreServices},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsAssetsSystem" parameterType="LgsAssetsSystem">
+        update lgs_assets_system
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="demandId != null">demand_id = #{demandId},</if>
+            <if test="systemName != null">system_name = #{systemName},</if>
+            <if test="edition != null">edition = #{edition},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="isGxp != null">is_gxp = #{isGxp},</if>
+            <if test="coreServices != null">core_services = #{coreServices},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsAssetsSystemById" parameterType="Long">
+        delete from lgs_assets_system where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsAssetsSystemByIds" parameterType="String">
+        delete from lgs_assets_system where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

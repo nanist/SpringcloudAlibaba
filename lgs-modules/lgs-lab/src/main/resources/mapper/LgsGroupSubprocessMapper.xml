@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsGroupSubprocessMapper">
+    
+    <resultMap type="LgsGroupSubprocess" id="LgsGroupSubprocessResult">
+        <result property="id"    column="ID"    />
+        <result property="groupManagementId"    column="group_management_id"    />
+        <result property="processLink"    column="process_link"    />
+        <result property="subprocess"    column="subprocess"    />
+        <result property="sort"    column="sort"    />
+        <result property="isComplete"    column="is_complete"    />
+        <result property="completedBy"    column="completed_by"    />
+        <result property="completionTime"    column="completion_time"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+    </resultMap>
+
+    <sql id="selectLgsGroupSubprocessVo">
+        select ID, group_management_id, process_link, subprocess, sort, is_complete, completed_by, completion_time, remarks, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME from lgs_group_subprocess
+    </sql>
+
+    <select id="selectLgsGroupSubprocessList" parameterType="LgsGroupSubprocess" resultMap="LgsGroupSubprocessResult">
+        <include refid="selectLgsGroupSubprocessVo"/>
+        <where>  
+            <if test="groupManagementId != null "> and group_management_id = #{groupManagementId}</if>
+            <if test="processLink != null  and processLink != ''"> and process_link = #{processLink}</if>
+            <if test="subprocess != null  and subprocess != ''"> and subprocess = #{subprocess}</if>
+            <if test="sort != null "> and sort = #{sort}</if>
+            <if test="isComplete != null "> and is_complete = #{isComplete}</if>
+            <if test="completedBy != null  and completedBy != ''"> and completed_by = #{completedBy}</if>
+            <if test="completionTime != null "> and completion_time = #{completionTime}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectLgsGroupSubprocessById" parameterType="Long" resultMap="LgsGroupSubprocessResult">
+        <include refid="selectLgsGroupSubprocessVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsGroupSubprocess" parameterType="LgsGroupSubprocess" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_group_subprocess
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupManagementId != null">group_management_id,</if>
+            <if test="processLink != null">process_link,</if>
+            <if test="subprocess != null">subprocess,</if>
+            <if test="sort != null">sort,</if>
+            <if test="isComplete != null">is_complete,</if>
+            <if test="completedBy != null">completed_by,</if>
+            <if test="completionTime != null">completion_time,</if>
+            <if test="remarks != null">remarks,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="groupManagementId != null">#{groupManagementId},</if>
+            <if test="processLink != null">#{processLink},</if>
+            <if test="subprocess != null">#{subprocess},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="isComplete != null">#{isComplete},</if>
+            <if test="completedBy != null">#{completedBy},</if>
+            <if test="completionTime != null">#{completionTime},</if>
+            <if test="remarks != null">#{remarks},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsGroupSubprocess" parameterType="LgsGroupSubprocess">
+        update lgs_group_subprocess
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="groupManagementId != null">group_management_id = #{groupManagementId},</if>
+            <if test="processLink != null">process_link = #{processLink},</if>
+            <if test="subprocess != null">subprocess = #{subprocess},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="isComplete != null">is_complete = #{isComplete},</if>
+            <if test="completedBy != null">completed_by = #{completedBy},</if>
+            <if test="completionTime != null">completion_time = #{completionTime},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsGroupSubprocessById" parameterType="Long">
+        delete from lgs_group_subprocess where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsGroupSubprocessByIds" parameterType="String">
+        delete from lgs_group_subprocess where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="batchCompleteGroupSubprocess" parameterType="LgsGroupSubprocess">
+        update lgs_group_subprocess
+        set  is_complete=1,
+        completion_time = #{completionTime},
+        completed_by = #{completedBy},
+        UPDATED_BY = #{updatedBy},
+        UPDATED_TIME = #{updatedTime}
+        where id in
+        <!--    这里的问题是:list表示要遍历的集合;item:表示遍历出来的每一个值,所以要在#{item}放item的值;-->
+        <foreach collection="ids" index="index" item="item"
+                 open="("  separator="," close=")">
+            #{item}
+        </foreach>
+
+    </update>
+
+    <select id="getGroupMappingInfoByDemandId" parameterType="LgsGroupSubprocess" resultMap="LgsGroupSubprocessResult">
+        SELECT
+            s.ID,
+            s.process_link,
+            (
+                SELECT
+                    m.completion_time
+                FROM
+                    lgs_group_mapping m
+                WHERE
+                    m.subprocess_ids = s.ID
+                  AND m.demand_id = #{demandId}
+                  AND m.group_management_id = #{groupManagementId}
+            ) AS completion_time,
+            (
+                SELECT
+                    m.is_complete
+                FROM
+                    lgs_group_mapping m
+                WHERE
+                    m.subprocess_ids = s.ID
+                  AND m.demand_id = #{demandId}
+                  AND m.group_management_id = #{groupManagementId}
+            ) AS is_complete
+        FROM
+            lgs_group_subprocess s
+        WHERE
+            s.group_management_id = #{groupManagementId} ORDER BY s.sort asc;;
+    </select>
+
+</mapper>

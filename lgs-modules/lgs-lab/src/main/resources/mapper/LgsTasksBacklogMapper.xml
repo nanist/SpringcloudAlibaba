@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsTasksBacklogMapper">
+    
+    <resultMap type="LgsTasksBacklog" id="LgsTasksBacklogResult">
+        <result property="id"    column="ID"    />
+        <result property="siteId"    column="site_id"    />
+        <result property="operationSupportId"    column="operation_support_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="backlogDescribe"    column="backlog_describe"    />
+        <result property="fileIds"    column="file_ids"    />
+        <result property="backlogType"    column="backlog_type"    />
+        <result property="completedBy"    column="completed_by"    />
+        <result property="completionTime"    column="completion_time"    />
+        <result property="subtask"    column="subtask"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+    </resultMap>
+
+    <sql id="selectLgsTasksBacklogVo">
+        select ID, site_id, operation_support_id, user_id, backlog_describe, file_ids, backlog_type, completed_by, completion_time, subtask, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME from lgs_tasks_backlog
+    </sql>
+
+    <select id="selectLgsTasksBacklogList" parameterType="LgsTasksBacklog" resultMap="LgsTasksBacklogResult">
+        <include refid="selectLgsTasksBacklogVo"/>
+        <where>  
+            <if test="siteId != null "> and site_id = #{siteId}</if>
+            <if test="operationSupportId != null "> and operation_support_id = #{operationSupportId}</if>
+            <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
+            <if test="backlogDescribe != null  and backlogDescribe != ''"> and backlog_describe = #{backlogDescribe}</if>
+            <if test="fileIds != null  and fileIds != ''"> and file_ids = #{fileIds}</if>
+            <if test="backlogType != null "> and backlog_type = #{backlogType}</if>
+            <if test="completedBy != null  and completedBy != ''"> and completed_by = #{completedBy}</if>
+            <if test="completionTime != null "> and completion_time = #{completionTime}</if>
+            <if test="subtask != null  and subtask != ''"> and subtask = #{subtask}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectLgsTasksBacklogById" parameterType="Long" resultMap="LgsTasksBacklogResult">
+        <include refid="selectLgsTasksBacklogVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsTasksBacklog" parameterType="LgsTasksBacklog" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_tasks_backlog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="siteId != null">site_id,</if>
+            <if test="operationSupportId != null">operation_support_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="backlogDescribe != null">backlog_describe,</if>
+            <if test="fileIds != null">file_ids,</if>
+            <if test="backlogType != null">backlog_type,</if>
+            <if test="completedBy != null">completed_by,</if>
+            <if test="completionTime != null">completion_time,</if>
+            <if test="subtask != null">subtask,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="siteId != null">#{siteId},</if>
+            <if test="operationSupportId != null">#{operationSupportId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="backlogDescribe != null">#{backlogDescribe},</if>
+            <if test="fileIds != null">#{fileIds},</if>
+            <if test="backlogType != null">#{backlogType},</if>
+            <if test="completedBy != null">#{completedBy},</if>
+            <if test="completionTime != null">#{completionTime},</if>
+            <if test="subtask != null">#{subtask},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsTasksBacklog" parameterType="LgsTasksBacklog">
+        update lgs_tasks_backlog
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="siteId != null">site_id = #{siteId},</if>
+            <if test="operationSupportId != null">operation_support_id = #{operationSupportId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="backlogDescribe != null">backlog_describe = #{backlogDescribe},</if>
+            <if test="fileIds != null">file_ids = #{fileIds},</if>
+            <if test="backlogType != null">backlog_type = #{backlogType},</if>
+            <if test="completedBy != null">completed_by = #{completedBy},</if>
+            <if test="completionTime != null">completion_time = #{completionTime},</if>
+            <if test="subtask != null">subtask = #{subtask},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsTasksBacklogById" parameterType="Long">
+        delete from lgs_tasks_backlog where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsTasksBacklogByIds" parameterType="String">
+        delete from lgs_tasks_backlog where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

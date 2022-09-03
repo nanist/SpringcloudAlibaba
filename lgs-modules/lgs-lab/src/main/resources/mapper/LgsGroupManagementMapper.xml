@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.lab.mapper.LgsGroupManagementMapper">
+    
+    <resultMap type="LgsGroupManagement" id="LgsGroupManagementResult">
+        <result property="id"    column="ID"    />
+        <result property="demandId"    column="demand_id"    />
+        <result property="processLink"    column="process_link"    />
+        <result property="isComplete"    column="is_complete"    />
+        <result property="completedBy"    column="completed_by"    />
+        <result property="completionTime"    column="completion_time"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="delFlag"    column="DEL_FLAG"    />
+        <result property="createdBy"    column="CREATED_BY"    />
+        <result property="createdTime"    column="CREATED_TIME"    />
+        <result property="updatedBy"    column="UPDATED_BY"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+        <result property="userName"    column="user_name"    />
+    </resultMap>
+
+    <sql id="selectLgsGroupManagementVo">
+        select ID, demand_id, process_link, is_complete, completed_by, completion_time, remarks, DEL_FLAG, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME from lgs_group_management
+    </sql>
+
+    <select id="selectLgsGroupManagementList" parameterType="LgsGroupManagement" resultMap="LgsGroupManagementResult">
+        <include refid="selectLgsGroupManagementVo"/>
+        <where>  
+            <if test="demandId != null "> and demand_id = #{demandId}</if>
+            <if test="processLink != null  and processLink != ''"> and process_link = #{processLink}</if>
+            <if test="isComplete != null "> and is_complete = #{isComplete}</if>
+            <if test="completedBy != null  and completedBy != ''"> and completed_by = #{completedBy}</if>
+            <if test="completionTime != null "> and completion_time = #{completionTime}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+            <if test="delFlag != null "> and DEL_FLAG = #{delFlag}</if>
+            <if test="createdBy != null  and createdBy != ''"> and CREATED_BY = #{createdBy}</if>
+            <if test="createdTime != null "> and CREATED_TIME = #{createdTime}</if>
+            <if test="updatedBy != null  and updatedBy != ''"> and UPDATED_BY = #{updatedBy}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectLgsGroupManagementById" parameterType="Long" resultMap="LgsGroupManagementResult">
+        <include refid="selectLgsGroupManagementVo"/>
+        where ID = #{id}
+    </select>
+        
+    <insert id="insertLgsGroupManagement" parameterType="LgsGroupManagement" useGeneratedKeys="true" keyProperty="id">
+        insert into lgs_group_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="demandId != null">demand_id,</if>
+            <if test="processLink != null">process_link,</if>
+            <if test="isComplete != null">is_complete,</if>
+            <if test="completedBy != null">completed_by,</if>
+            <if test="completionTime != null">completion_time,</if>
+            <if test="remarks != null">remarks,</if>
+            <if test="delFlag != null">DEL_FLAG,</if>
+            <if test="createdBy != null">CREATED_BY,</if>
+            <if test="createdTime != null">CREATED_TIME,</if>
+            <if test="updatedBy != null">UPDATED_BY,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="demandId != null">#{demandId},</if>
+            <if test="processLink != null">#{processLink},</if>
+            <if test="isComplete != null">#{isComplete},</if>
+            <if test="completedBy != null">#{completedBy},</if>
+            <if test="completionTime != null">#{completionTime},</if>
+            <if test="remarks != null">#{remarks},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLgsGroupManagement" parameterType="LgsGroupManagement">
+        update lgs_group_management
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="demandId != null">demand_id = #{demandId},</if>
+            <if test="processLink != null">process_link = #{processLink},</if>
+            <if test="isComplete != null">is_complete = #{isComplete},</if>
+            <if test="completedBy != null">completed_by = #{completedBy},</if>
+            <if test="completionTime != null">completion_time = #{completionTime},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="delFlag != null">DEL_FLAG = #{delFlag},</if>
+            <if test="createdBy != null">CREATED_BY = #{createdBy},</if>
+            <if test="createdTime != null">CREATED_TIME = #{createdTime},</if>
+            <if test="updatedBy != null">UPDATED_BY = #{updatedBy},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteLgsGroupManagementById" parameterType="Long">
+        delete from lgs_group_management where ID = #{id}
+    </delete>
+
+    <delete id="deleteLgsGroupManagementByIds" parameterType="String">
+        delete from lgs_group_management where ID in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="groupSubprocessList" parameterType="LgsGroupManagement" resultMap="LgsGroupManagementResult">
+        SELECT
+            lgm.process_link,
+            ldg.is_complete,
+            ldg.completed_by,
+            ldg.completion_time,
+            su.user_name
+        FROM
+            lgs_demand_group ldg
+                LEFT JOIN lgs_group_management lgm ON ldg.group_management_id = lgm.ID
+                LEFT JOIN sys_user su ON ldg.completed_by = su.user_id
+        WHERE
+            ldg.demand_id = #{demandId}
+    </select>
+
+</mapper>
